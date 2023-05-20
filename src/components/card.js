@@ -37,6 +37,12 @@ const Card = (article) => {
   byAuthor.textContent = `By ${article.authorName}`
   headliner.textContent = article.headline
 
+  card.appendChild(headliner);
+  card.appendChild(author);
+  author.appendChild(imgContainer)
+  imgContainer.appendChild(img)
+  imgContainer.appendChild(byAuthor)
+
   card.addEventListener('click', () => {
     console.log(headliner.textContent)
   })
@@ -44,7 +50,20 @@ const Card = (article) => {
   return card
 
 }
-
+// bootstrap
+// : 
+// (3) [{…}, {…}, {…}]
+// javascript
+// : 
+// (4) [{…}, {…}, {…}, {…}]
+// jquery
+// : 
+// (3) [{…}, {…}, {…}]
+// node
+// : 
+// (2) [{…}, {…}]
+// technology
+// :
 
 
 
@@ -60,11 +79,20 @@ const Card = (article) => {
   const cardAppender = (selector) => {
   axios.get(`http://localhost:5001/api/articles`)
   .then(res => { 
-    res.data.articles.forEach((article) => { 
-      document.querySelector(`${selector}`).appendChild(Card(article))
-    })
+    let theArticles = res.data.articles;
+    theArticles.bootstrap.forEach((article) => { 
+      document.querySelector(`${selector}`).appendChild(Card(article));
+      theArticles.javascript.forEach(article => {
+        document.querySelector(`${selector}`).appendChild(Card(article));
+        theArticles.jquery.forEach(article => {
+          document.querySelector(`${selector}`).appendChild(Card(article));
+          theArticles.node.forEach(article => {
+            document.querySelector(`${selector}`).appendChild(Card(article));
+            theArticles.technology.forEach(article => {
+              document.querySelector(`${selector}`).appendChild(Card(article));
 
-  })
+          })}) })})})})
+  
   .catch(err => {
     console.log(err);
 
