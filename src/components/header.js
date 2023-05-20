@@ -11,6 +11,27 @@ const Header = (title, date, temp) => {
   //    <span class="temp">{ temp }</span>
   //  </div>
   //
+
+
+  const header = document.createElement('div');
+  const dated = document.createElement('span');
+  const titled = document.createElement('h1');
+  const tempd = document.createElement('span');
+  // question on if were updating the text content to an object or not
+  dated.textContent = date;
+  dated.classList.add('date');
+  titled.textContent = title
+  tempd.classList.add('temp');
+  tempd.textContent = temp;
+  header.classList.add('header')
+
+ 
+  header.appendChild(dated);
+  header.appendChild(titled);
+  header.appendChild(tempd);
+
+
+  return header
 }
 
 const headerAppender = (selector) => {
@@ -19,8 +40,11 @@ const headerAppender = (selector) => {
   // Implement this function taking a css selector as its only argument.
   // It should create a header using the Header component above, passing arguments of your choosing.
   // It should append the header to the element in the DOM that matches the given selector.
-  //
-
+  // <div class="header-container">
+    // <!-- index.js injects the header here -->
+    // </div>
+  document.querySelector(`${selector}`).appendChild(Header('peter', 'jan 4, 99', '72 degrees'))
+  
   // HINT: querySelector can take in a string (ie querySelector("#wrapper")) 
   // but it can also take in a variable (ie querySelector(selector))
   // We are taking care of passing in the correct selector on line 16,
