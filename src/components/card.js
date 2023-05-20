@@ -64,8 +64,6 @@ const Card = (article) => {
       document.querySelector(`${selector}`).appendChild(Card(article))
     })
 
-
-
   })
   .catch(err => {
     console.log(err);
