@@ -1,7 +1,7 @@
 import { createEvent } from "@testing-library/dom"
 import axios from 'axios'
 
-const Card = (article) => {
+
   // TASK 5
   // ---------------------
   // Implement this function, which should return the markup you see below.
@@ -19,53 +19,41 @@ const Card = (article) => {
   //     <span>By { authorName }</span>
   //   </div>
   // </div>
-
+  const Card = (article) => {
 
   const card = document.createElement('div')
-  const headliner = document.createElement('div')
+  const headline = document.createElement('div')
   const author = document.createElement('div')
   const imgContainer = document.createElement('div')
   const img = document.createElement('img')
   const byAuthor = document.createElement('span')
 
   card.classList.add('card')
-  headliner.classList.add('headline')
+  headline.classList.add('headline')
   author.classList.add('author')
   imgContainer.classList.add('img-container')
 
   img.src = article.authorPhoto
   byAuthor.textContent = `By ${article.authorName}`
-  headliner.textContent = article.headline
+  headline.textContent = article.headline
 
-  card.appendChild(headliner);
+  card.appendChild(headline);
   card.appendChild(author);
   author.appendChild(imgContainer)
   imgContainer.appendChild(img)
-  imgContainer.appendChild(byAuthor)
+  author.appendChild(byAuthor)
 
   card.addEventListener('click', () => {
-    console.log(headliner.textContent)
-  })
+      console.log(headline.textContent);
+    
+  });
 
   return card
 
 }
-// bootstrap
-// : 
-// (3) [{…}, {…}, {…}]
-// javascript
-// : 
-// (4) [{…}, {…}, {…}, {…}]
-// jquery
-// : 
-// (3) [{…}, {…}, {…}]
-// node
-// : 
-// (2) [{…}, {…}]
-// technology
-// :
 
 
+// {javascript: Array(4), bootstrap: Array(3), technology: Array(3), jquery: Array(3), node: Array(2)
 
 
   // TASK 6
@@ -79,19 +67,26 @@ const Card = (article) => {
   const cardAppender = (selector) => {
   axios.get(`http://localhost:5001/api/articles`)
   .then(res => { 
-    let theArticles = res.data.articles;
-    theArticles.bootstrap.forEach((article) => { 
+    const theArticles = res.data.articles;
+    console.log(theArticles);
+    
+    theArticles.javascript.forEach(article => { 
       document.querySelector(`${selector}`).appendChild(Card(article));
-      theArticles.javascript.forEach(article => {
-        document.querySelector(`${selector}`).appendChild(Card(article));
-        theArticles.jquery.forEach(article => {
-          document.querySelector(`${selector}`).appendChild(Card(article));
-          theArticles.node.forEach(article => {
-            document.querySelector(`${selector}`).appendChild(Card(article));
-            theArticles.technology.forEach(article => {
-              document.querySelector(`${selector}`).appendChild(Card(article));
-
-          })}) })})})})
+    });
+    theArticles.bootstrap.forEach(article => { 
+      document.querySelector(`${selector}`).appendChild(Card(article));
+    });
+    theArticles.technology.forEach(article => { 
+      document.querySelector(`${selector}`).appendChild(Card(article));
+    });
+    theArticles.jquery.forEach(article => { 
+      document.querySelector(`${selector}`).appendChild(Card(article));
+    });
+    theArticles.node.forEach(article => { 
+      document.querySelector(`${selector}`).appendChild(Card(article));
+    });
+      
+    })
   
   .catch(err => {
     console.log(err);
